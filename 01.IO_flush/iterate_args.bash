@@ -33,7 +33,7 @@ for ((i = 1; i < 8; i++)); do
   # description="${description%,}"
 
   echo "Experiment: $experiment: ${description%, }"
-  ./fputs_experiment $experiment
+  ./fputs_experiment "$experiment"
 
   if ((i & 1)); then
     mv output.txt "output_${file_suffix}.txt"
