@@ -67,15 +67,50 @@ dl_spbu_oop() {
     fi
 }
 
-download() {
-    local url="${1}/download"
-    if ! wget -P "$DESTINATION" "$url"; then
-        >&2 echo "Cannot download $1"
-        return 15
+extract_and_cleanup() {
+    local file_path="$1"
+    local dest_dir="$2"
+
+    unzip -o "$file_path" -d "$dest_dir"
+    local status=$?
+    if [ $status -ne 0 ]; then
+        >&2 echo "Failed to extract $file_path"
+        return $status
+    fi
+
+    rm -f "$file_path"
+    if [ $? -ne 0 ]; then
+        >&2 echo "Failed to remove the zip file $file_path"
+        return 1
     fi
 }
 
+
+download() {
+    local url="$1"
+    # Generate a unique name from the URL by replacing '/' and ':' characters
+    local filename=$(echo "$url" | sed 's/[^a-zA-Z0-9]/_/g')
+    local filepath="$DESTINATION/$filename.zip"
+
+    if ! wget -O "$filepath" "${url}/download"; then
+        >&2 echo "Cannot download $url"
+        return 15
+    fi
+
+    echo "$filepath"
+}
+
 for u in $(dl_spbu_oop); do
-    download "${u}"
+    file_url="${u}"
+
+    # Download the file and receive the unique filepath back
+    local_file=$(download "$file_url")
+    download_status=$?
+    if [ $download_status -ne 0 ]; then
+        continue
+    fi
+
+    extract_and_cleanup "$local_file" "$DESTINATION"
     echo $?
 done
+

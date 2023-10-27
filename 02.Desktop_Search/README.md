@@ -1,6 +1,6 @@
 # SPbU Resource Downloader
 
-This script automates downloading educational resources from the St. Petersburg University server as an arhives
+This script automates downloading educational resources from the St. Petersburg University server
 
 ## Usage
 
