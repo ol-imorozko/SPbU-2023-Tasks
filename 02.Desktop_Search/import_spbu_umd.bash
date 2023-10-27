@@ -12,8 +12,7 @@ DESTINATION=""
 PROBE=false
 
 # Parse command-line options
-OPTIONS=$(getopt -o s:d:p --long source:,destination:,probe -- "$@")
-if [ $? -ne 0 ]; then
+if ! OPTIONS=$(getopt -o s:d:p --long source:,destination:,probe -- "$@"); then
     echo "Error: Failed parsing options." >&2
     exit 1
 fi
@@ -59,7 +58,9 @@ dl_spbu_s_e() {
 }
 
 dl_spbu_oop() {
-    local result=$(dl_spbu_s_e grep -o -E "'https://nc\.spbu\.ru/.+?'" | sed "s/'//g" | grep -oP 'https://nc\.spbu\.ru/s/[^\s<>"'\'']+' | sort | uniq )
+    local result
+    result=$(dl_spbu_s_e grep -o -E "'https://nc\.spbu\.ru/.+?'" | sed "s/'//g" | \
+             grep -oP 'https://nc\.spbu\.ru/s/[^\s<>"'\'']+' | sort | uniq )
     if [ "$PROBE" = true ]; then
         echo "$result" | sort -R | head -n 10
     else
@@ -78,8 +79,7 @@ extract_and_cleanup() {
         return $status
     fi
 
-    rm -f "$file_path"
-    if [ $? -ne 0 ]; then
+    if ! rm -f "$file_path"; then
         >&2 echo "Failed to remove the zip file $file_path"
         return 1
     fi
@@ -89,7 +89,7 @@ extract_and_cleanup() {
 download() {
     local url="$1"
     # Generate a unique name from the URL by replacing '/' and ':' characters
-    local filename=$(echo "$url" | sed 's/[^a-zA-Z0-9]/_/g')
+    local filename="${url//[^a-zA-Z0-9]/_}"
     local filepath="$DESTINATION/$filename.zip"
 
     if ! wget -O "$filepath" "${url}/download"; then
@@ -113,4 +113,3 @@ for u in $(dl_spbu_oop); do
     extract_and_cleanup "$local_file" "$DESTINATION"
     echo $?
 done
-
