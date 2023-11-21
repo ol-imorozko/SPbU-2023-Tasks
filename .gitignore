@@ -3,5 +3,5 @@
 compile_commands.json
 .vimrc
 release
-test.pgm
+*.pgm
 fractal
