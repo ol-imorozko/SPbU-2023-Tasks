@@ -2,6 +2,8 @@
 #include <assert.h>
 
 #include "include/image.h"
+#include "include/custom_assert.h"
+#include "include/utils.h"
 
 image_p
 create_image(pixel_coord width, pixel_coord height)
@@ -30,7 +32,7 @@ get_width(image_p picture)
 int
 save_pgm(image_p picture, const char* filename)
 {
-  FILE* to = fopen("test.pgm", "w");
+  FILE* to = fopen(filename, "w");
 
   fprintf(to, "P2\n%u %u\n255\n", picture->width, picture->height);
 
@@ -45,10 +47,24 @@ save_pgm(image_p picture, const char* filename)
 }
 
 void
+assert_dimensions(image_p picture, pixel_coord x, pixel_coord y)
+{
+  NDUNUSED(picture);
+  NDUNUSED(x);
+  NDUNUSED(y);
+
+  /*
+   * No need to check whether x and y are >= 0 as they are represented by an
+   * unsigned integer type
+   */
+  assert_lt(x, picture->width);
+  assert_lt(y, picture->height);
+}
+
+void
 set_pixel(image_p picture, pixel_coord x, pixel_coord y, pixel_data color)
 {
-  assert(("Out of dimension",
-          x >= 0 && y >= 0 && x < picture->width && y < picture->height));
+  assert_dimensions(picture, x, y);
   picture->data[picture->width * y + x] = color;
 }
 
