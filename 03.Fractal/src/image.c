@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "image.h"
+#include "include/image.h"
 
 image_p create_image(pixel_coord width, pixel_coord height)
 {

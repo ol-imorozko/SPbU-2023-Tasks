@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "image.h"
-#include "fractal.h"
+
+#include "include/image.h"
+#include "include/fractal.h"
 
 int main()
 {

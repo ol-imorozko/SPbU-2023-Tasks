@@ -1,6 +1,7 @@
-#include "image.h"
-#include "fractal.h"
 #include <assert.h>
+
+#include "include/image.h"
+#include "include/fractal.h"
 
 // Helper function to draw the Sierpinski Carpet
 void draw_sierpinski_carpet(image_p picture, int x, int y, int size) {
