@@ -18,8 +18,7 @@ typedef unsigned int pixel_coord;
 /**
  * @brief Structure to store image data and metadata
  */
-typedef struct image
-{
+typedef struct image {
   pixel_coord width;
   pixel_coord height;
   pixel_data *data;
@@ -28,7 +27,7 @@ typedef struct image
 /**
  * @brief Image pointer
  */
-typedef struct image* image_p;
+typedef struct image *image_p;
 
 /**
  * @brief Create image of given width and height
@@ -82,4 +81,3 @@ int save_pgm(image_p picture, const char *filename);
 void set_pixel(image_p picture, pixel_coord x, pixel_coord y, pixel_data color);
 
 #endif // _IMAGE_H_
-

@@ -3,14 +3,15 @@
 #include "include/image.h"
 #include "include/fractal.h"
 
-int main()
+int
+main()
 {
-    image_p img = create_image(300, 300);
+  image_p img = create_image(300, 300);
 
-    fill_white(img);
+  fill_white(img);
 
-    fractal(img, Sierpinski_Carpet);
+  fractal(img, Sierpinski_Carpet);
 
-    save_pgm(img, "test.pgm");
-    return 0;
+  save_pgm(img, "test.pgm");
+  return 0;
 }
