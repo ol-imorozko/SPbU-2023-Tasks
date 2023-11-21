@@ -10,7 +10,7 @@ main()
 
   fill_white(img);
 
-  fractal(img, Sierpinski_Carpet);
+  fractal(img, SIERPINSKI_CARPET);
 
   save_pgm(img, "test.pgm");
   return 0;

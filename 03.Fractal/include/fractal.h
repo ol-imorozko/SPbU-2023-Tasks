@@ -7,7 +7,7 @@
  * @brief Enum for fractal types
  */
 typedef enum {
-    Sierpinski_Carpet,
+  SIERPINSKI_CARPET,
 } fractal_type;
 
 /**

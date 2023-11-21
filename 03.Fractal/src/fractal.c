@@ -33,7 +33,7 @@ void
 fractal(image_p picture, fractal_type type)
 {
   switch( type ) {
-  case Sierpinski_Carpet: {
+  case SIERPINSKI_CARPET: {
     assert_equal(picture->width, picture->height);
 
     int size = picture->width;
