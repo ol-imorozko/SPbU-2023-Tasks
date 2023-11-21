@@ -2,6 +2,7 @@
 
 #include "include/image.h"
 #include "include/fractal.h"
+#include "include/custom_assert.h"
 
 void
 draw_sierpinski_carpet(image_p picture, int x, int y, int size)
@@ -38,6 +39,7 @@ fractal(image_p picture, fractal_type type)
 {
   switch( type ) {
   case Sierpinski_Carpet: {
+    assert_equal(picture->width, picture->height);
 
     int size = picture->width;
     draw_sierpinski_carpet(picture, 0, 0, size);
