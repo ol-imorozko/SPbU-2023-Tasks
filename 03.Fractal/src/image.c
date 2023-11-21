@@ -29,10 +29,11 @@ get_width(image_p picture)
   return picture->width;
 }
 
-int
+void
 save_pgm(image_p picture, const char* filename)
 {
   FILE* to = fopen(filename, "w");
+  assert_nequal(to, NULL);
 
   fprintf(to, "P2\n%u %u\n255\n", picture->width, picture->height);
 
@@ -42,8 +43,6 @@ save_pgm(image_p picture, const char* filename)
       fprintf(to, "%u%c", *(p++), x == picture->width - 1 ? '\n' : ' ');
 
   fclose(to);
-
-  return 0;
 }
 
 void

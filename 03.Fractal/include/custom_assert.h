@@ -17,6 +17,7 @@
   } while (0)
 
 #define assert_equal(x, y) _custom_assert((x) == (y), x, y)
+#define assert_nequal(x, y) _custom_assert((x) != (y), x, y)
 #define assert_lt(x, y) _custom_assert((x) < (y), x, y)
 #define assert_ge(x, y) _custom_assert((x) >= (y), x, y)
 

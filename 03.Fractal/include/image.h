@@ -65,10 +65,8 @@ void free_image(image_p picture);
  *
  * @param picture     Pointer to the image to be saved
  * @param filename    Filename to save the image as
- *
- * @returns 0 on success, non-zero otherwise
  */
-int save_pgm(image_p picture, const char *filename);
+void save_pgm(image_p picture, const char *filename);
 
 /**
  * @brief Set the pixel of an image to a given color
