@@ -3,7 +3,6 @@
 #include "include/image.h"
 #include "include/fractal.h"
 
-// Helper function to draw the Sierpinski Carpet
 void
 draw_sierpinski_carpet(image_p picture, int x, int y, int size)
 {
@@ -37,13 +36,11 @@ draw_sierpinski_carpet(image_p picture, int x, int y, int size)
 void
 fractal(image_p picture, fractal_type type)
 {
-  if( type == Sierpinski_Carpet ) {
-    // Assuming picture dimensions are a power of 3 for correct Sierpinski
-    // Carpet
+  switch( type ) {
+  case Sierpinski_Carpet: {
 
-    assert(("Not a square", picture->width == picture->height));
     int size = picture->width;
     draw_sierpinski_carpet(picture, 0, 0, size);
   }
-  // Other fractal types can be implemented here
+  }
 }

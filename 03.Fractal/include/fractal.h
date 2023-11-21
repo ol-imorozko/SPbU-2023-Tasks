@@ -8,7 +8,6 @@
  */
 typedef enum {
     Sierpinski_Carpet,
-    Mandelbrot_Set
 } fractal_type;
 
 /**
