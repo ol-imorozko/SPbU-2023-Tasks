@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <complex.h>
 
 #include "include/image.h"
 #include "include/fractal.h"
@@ -30,6 +31,30 @@ draw_sierpinski_carpet(image_p picture, int x, int y, int size)
 }
 
 void
+draw_mandelbrot_set(image_p picture)
+{
+  int max_iter = 1000;
+  double scale = 4.0 / picture->width;
+
+  for( pixel_coord y = 0; y < picture->height; y++ ) {
+    for( pixel_coord x = 0; x < picture->width; x++ ) {
+      double real = (x - picture->width / 2.0) * scale;
+      double imag = (y - picture->height / 2.0) * scale;
+
+      complex double c = real + imag * I;
+      complex double z = 0;
+      int iter;
+
+      for( iter = 0; iter < max_iter && cabs(z) <= 2.0; iter++ ) {
+        z = z * z + c;
+      }
+
+      set_pixel(picture, x, y, iter % 256);
+    }
+  }
+}
+
+void
 fractal(image_p picture, fractal_type type)
 {
   switch( type ) {
@@ -38,6 +63,10 @@ fractal(image_p picture, fractal_type type)
 
     int size = picture->width;
     draw_sierpinski_carpet(picture, 0, 0, size);
+    break;
   }
+  case MANDELBROT_SET:
+    draw_mandelbrot_set(picture);
+    break;
   }
 }
