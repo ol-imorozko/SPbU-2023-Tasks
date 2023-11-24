@@ -100,6 +100,18 @@ download() {
     echo "$filepath"
 }
 
+update_recoll_index() {
+    echo "Updating Recoll index..."
+    recollindex -r "$DESTINATION"
+    local status=$?
+    if [ $status -ne 0 ]; then
+        >&2 echo "Failed to update Recoll index."
+        return $status
+    else
+        echo "Recoll index updated successfully."
+    fi
+}
+
 for u in $(dl_spbu_oop); do
     file_url="${u}"
 
@@ -113,3 +125,9 @@ for u in $(dl_spbu_oop); do
     extract_and_cleanup "$local_file" "$DESTINATION"
     echo $?
 done
+
+update_recoll_index
+update_status=$?
+if [ $update_status -ne 0 ]; then
+    exit $update_status
+fi
