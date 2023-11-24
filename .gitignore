@@ -1,0 +1,7 @@
+*.o
+.cache/
+compile_commands.json
+.vimrc
+release
+*.pgm
+fractal
